@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>utils/index.js - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">utils/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module bdv2-theme-converter/utils */
+
+/**
+ * Renames an object's keys.
+ *
+ * @param {Object} obj - The source object.
+ * @param {Object} newKeys
+ * An object with the old keys as keys and the new keys as values.
+ * @returns {Object} The source object with the keys renamed.
+ */
+module.exports.renameKeys = (obj, newKeys) => {
+  return Object.assign({}, ...Object.keys(obj)
+    .map(k => ({[(newKeys[k] || k)]: obj[k]}))
+  );
+};
+
+/**
+ * Merges multiple objects into one.
+ * If the objects share keys, the rightmost object's value will be used.
+ *
+ * @param {...Object} ...obj - The objects to merge.
+ * @returns {Object} The merged object.
+ */
+module.exports.merge = (...obj) => Object.assign({}, ...obj);
+
+/**
+ * Returns a checkmarked message.
+ *
+ * @param {string} msg - The original message.
+ * @returns {string} The checkmarked message.
+ */
+module.exports.checkMark = (msg) => `  \x1b[32m\u2713\x1b[0m ${msg}`;
+
+/**
+ * Checks whether the given object is empty.
+ *
+ * @param {Object} obj - The object to be checked.
+ * @returns {boolean}
+ */
+module.exports.isEmpty = (obj) => (!obj || Object.keys(obj).length === 0);
+
+/**
+ * Checks whether the given argument is an object.
+ *
+ * @param {*} arg - The argument to be checked.
+ * @returns {boolean}
+ */
+module.exports.isObject = (arg) => {
+  if(arg === null) return false;
+  return (/function|object/.test(typeof arg));
+};
+
+/**
+ * Checks whether the given argument is a finite number.
+ *
+ * @param {*} arg - The argument to be checked.
+ * @returns {boolean}
+ */
+module.exports.isNumber = (arg) => {
+  if(typeof arg === 'number') return isFinite(arg);
+  if(!arg) return false;
+  if(typeof arg === 'string' &amp;&amp; arg.trim() !== '')
+    return isFinite(Number(arg));
+  return false;
+};
+
+/**
+ * Returns an indent string of tabs or spaces.
+ *
+ * @param {string|number} type
+ * Can be one of &lt;code>tab&lt;/code> or &lt;code>space&lt;/code>, or a number.
+ * @param {number} width - The width of the indent string.
+ * @throws Will throw an error on invalid type or width.
+ * @returns {string} The indent string.
+ */
+module.exports.indent = (type, width) => {
+  if(this.isNumber(type)) return ' '.repeat(parseInt(type));
+  if(this.isNumber(width)) {
+    if(type.match(/^tab$/i)) return '\t'.repeat(width);
+    if(type.match(/^space$/i)) return ' '.repeat(width);
+    throw new TypeError("Invalid indent type, expected 'tab' or 'space'");
+  }
+  throw new TypeError('Invalid indent width, expected a number');
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Mon Jul 23 2018 11:48:28 GMT+0300 (EEST)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

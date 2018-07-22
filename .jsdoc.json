@@ -1,0 +1,22 @@
+{
+  "tags": {
+    "allowUnknownTags": false,
+    "dictionaries": ["jsdoc"]
+  },
+  "source": {
+    "include": [
+      "index.js",
+      "utils/",
+      "lib/",
+      "README.md"
+    ]
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "destination": "docs/",
+    "encoding": "utf8",
+    "private": false,
+    "template": "./node_modules/postman-jsdoc-theme"
+  }
+}
+

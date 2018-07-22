@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/Stylus.js - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">lib/Stylus.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const semver = require('semver');
+const {stringify: toMetaString} = require('usercss-meta');
+
+/**
+ * @function
+ * @name Stylus~_quote
+ * @description Quotes a string using double quotes.
+ * @private
+ * @param {string} str - The input string.
+ * @returns {string} The quoted string.
+ */
+const _quote = (str) => str.replace(/^['"]*|['"]*$/g, '"');
+
+/**
+ * Class representing a Stylus Error.
+ *
+ * @private
+ * @extends {Error}
+ */
+class StylusError extends Error {}
+
+/**
+ * Namespace for Stylus.
+ *
+ * @namespace Stylus
+ * @see {@link https://github.com/openstyles/stylus|Stylus},
+ * {@link https://github.com/FirefoxBar/xStyle|xStyle}
+ */
+const Stylus = {
+  /**
+   * Formats metadata into a UserStyle string.
+   *
+   * @param {Object} meta - The metadata to be formatted.
+   * @returns {string} The formatted UserStyle string.
+   * @see {@link https://github.com/openstyles/stylus/wiki/Usercss#usercss-metadata|UserCSS Metadata}
+   */
+  format(meta) {
+    meta.version = semver.coerce(meta.version).raw;
+    if(!semver.valid(meta.version))
+      throw new StylusError('UserStyle version must follow SemVer');
+    return toMetaString(meta, {alignKeys: true, format: 'xstyle'});
+  },
+
+  /**
+   * Creates a &lt;code>@-moz-document&lt;/code> string.
+   *
+   * @param {Stylus.RULES} rule - The rule to use.
+   * @param {string} url - The URL to use.
+   * @throws Will throw an error when the rule is invalid.
+   * @returns {string} The created &lt;code>@-moz-document&lt;/code> string.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/@document|MDN docs}
+   */
+  mozDocument(rule, url) {
+    const found = Object.values(this.RULES).find(r => (r === rule));
+    if(!found) throw new StylusError('Invalid @-moz-document rule');
+    return `@-moz-document ${rule}(${_quote(url)})`;
+  }
+};
+
+/**
+ * @enum
+ * @name Stylus.RULES
+ * @description Moz document rules enumeration.
+ * @type {Object}
+ * @readonly
+ * @property {string} DOMAIN - Value: &lt;code>domain&lt;/code>.
+ * @property {string} URL - Value: &lt;code>url&lt;/code>.
+ * @property {string} PREFIX - Value: &lt;code>url-prefix&lt;/code>.
+ * @property {string} REGEXP - Value: &lt;code>regexp&lt;/code>.
+ * @see {@link https://github.com/stylish-userstyles/stylish/wiki/Valid-@-moz-document-rules|Stylish wiki}
+ */
+Object.defineProperty(Stylus, 'RULES', {
+  enumerable: true,
+  configurable: false,
+  writable: false,
+  value: {
+    DOMAIN: 'domain',
+    URL: 'url',
+    PREFIX: 'url-prefix',
+    REGEXP: 'regexp'
+  }
+});
+
+module.exports = Stylus;
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Mon Jul 23 2018 11:48:28 GMT+0300 (EEST)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

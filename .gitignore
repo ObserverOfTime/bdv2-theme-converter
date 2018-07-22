@@ -1,0 +1,17 @@
+# modules
+node_modules/
+
+# lockfiles
+package-lock.json
+yarn.lock
+Gemfile.lock
+
+# jekyll build
+docs/_site/
+
+# OS files
+*.db
+*.ini
+.directory
+.DS_STORE
+

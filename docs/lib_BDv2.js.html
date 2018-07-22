@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/BDv2.js - Postman Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">lib/BDv2.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const {isEmpty, isObject} = require('../utils');
+
+/**
+ * Class representing a Config Error.
+ *
+ * @private
+ * @extends {Error}
+ */
+class ConfigError extends Error {}
+
+/**
+ * Namespace for BDv2.
+ *
+ * @namespace BDv2
+ * @see {@link https://github.com/JsSucks/BetterDiscordApp|BDv2 (inactive)},
+ * {@link https://github.com/JsSucks/BetterDiscordApp/tree/toasts|Active branch},
+ * {@link https://github.com/samuelthomas2774/BetterDiscordApp/tree/discord-api|Active fork}
+ */
+const BDv2 = {
+
+  /**
+   * Validates a BDv2 config object.
+   *
+   * @param {Object} config - The config object to validate.
+   * @throws Will throw an error if any of the required properties are missing.
+   */
+  validateConfig(config) {
+    if(!isObject(config) || isEmpty(config))
+      throw new ConfigError('Missing configuration');
+    if(!isObject(config.info) || isEmpty(config.info))
+      throw new ConfigError('Missing theme info');
+    if(!config.info.name)
+      throw new ConfigError('Missing theme name');
+    if(!config.info.description)
+      throw new ConfigError('Missing theme description');
+    if(!config.info.version)
+      throw new ConfigError('Missing theme version');
+    if(isEmpty(config.info.authors))
+      throw new ConfigError('Missing theme author(s)');
+    if(!config.main)
+      throw new ConfigError('Missing main theme file');
+  }
+};
+
+module.exports = BDv2;
+
+/**
+ * Object representing a theme's configuration.
+ *
+ * @typedef {Object} BDv2~Config
+ * @property {BDv2~Info} info - The theme's info.
+ * @property {string} main - The main theme file.
+ * @property {Array.&lt;Object>} [configSchemes] - The theme's settings.
+ * @property {Array.&lt;Object>} [defaultConfig] - The default settings.
+ */
+
+/**
+ * Object representing a theme's info.
+ *
+ * @typedef {Object} BDv2~Info
+ * @property {string} type - The theme's type.
+ * @property {string} description - The theme's description.
+ * @property {string|number} version - The theme's version.
+ * @property {string} icon - The theme's icon in base64.
+ * @property {Array.&lt;BDv2~Author>} authors - The theme's authors.
+ * @property {string} [source] - The theme's source URL.
+ * @property {string} [website] - The theme's website URL.
+ */
+
+/**
+ * Object representing a theme author.
+ *
+ * @typedef {Object} BDv2~Author
+ * @property {string} name - The author's name.
+ * @property {string} discord_id - The author's Discord ID.
+ * @property {string} [github_username] - The author's GitHub username.
+ * @property {string} [twitter_username] - The author's Twitter username.
+ */
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Mon Jul 23 2018 11:48:28 GMT+0300 (EEST)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
