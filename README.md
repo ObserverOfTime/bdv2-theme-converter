@@ -35,4 +35,7 @@ You can view the documentation [here](https://observeroftime.github.io/bdv2-them
 - [jsdoc](https://ghub.io/jsdoc): An API documentation generator for JavaScript.
 - [postman-jsdoc-theme](https://ghub.io/postman-jsdoc-theme): A JSDoc Theme / Template
 
+## TODO
+
+- Parse BDv2 settings into CSS and UserCSS variables.
 

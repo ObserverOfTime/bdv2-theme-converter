@@ -1,6 +1,15 @@
 /** @module bdv2-theme-converter/utils */
 
 /**
+ * @const
+ * @name bdv2-theme-converter/utils~_empty
+ * @description An array of values that count as empty.
+ * @private
+ * @type {Array.<*>}
+ */
+const _empty = ['', null, undefined]; // eslint-disable-line no-undefined
+
+/**
  * Renames an object's keys.
  *
  * @param {Object} obj - The source object.
@@ -82,4 +91,22 @@ module.exports.indent = (type, width) => {
   }
   throw new TypeError('Invalid indent width, expected a number');
 };
+
+/**
+ * Removes null, undefined, and empty values from an object.
+ *
+ * @param {Object} obj - The object to be stripped.
+ * @returns {Object} The stripped object.
+ * @since 0.1.1
+ */
+module.exports.stripEmpty = (obj) => (
+  Object.keys(obj).reduce((acc, key) => {
+    const val = obj[key];
+    const isEmpty = _empty.includes(val) ||
+      ((Array.isArray(val) && val.length === 0) ||
+      (this.isObject(val) && this.isEmpty(val)));
+    if(!isEmpty) acc[key] = obj[key];
+    return acc;
+  }, {})
+);
 

@@ -1,6 +1,6 @@
 {
   "name": "bdv2-theme-converter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Converts BDv2 themes to legacy BD themes and Stylus UserStyles.",
   "main": "index.js",
   "repository": "git+https://github.com/ObserverOfTime/bdv2-theme-converter.git",

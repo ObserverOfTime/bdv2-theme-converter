@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -54,6 +54,21 @@ const stylus = require('./Stylus');
  * @type {string}
  */
 const {EOL: _EOL} = require('os');
+
+/**
+ * @function
+ * @name Converter~_fullPath
+ * @description Returns the absolute path of a given key.
+ * @param {Converter~Paths} paths - A Paths object.
+ * @param {string} key - The path key.
+ * @private
+ */
+const _fullPath = (paths, key) => {
+  const val = (key === 'src') ?
+    paths.src : paths.dest[key];
+  if(path.isAbsolute(val)) return val;
+  return path.resolve(paths.root, val);
+};
 
 /** Class representing a Converter. */
 class Converter {
@@ -126,16 +141,6 @@ class Converter {
       writable: true,
       value: utils.merge(defaults, paths)
     });
-    Object.defineProperty(this.paths, '_fullPath', {
-      enumerable: false,
-      configurable: false,
-      writable: false,
-      value: (key) => {
-        const val = (key === 'src') ?
-          this.paths.src : this.paths.dest[key];
-        return path.resolve(this.paths.root, val);
-      }
-    });
   }
 
   set EOL(eol) {
@@ -166,7 +171,7 @@ class Converter {
         .replace(/\r/g, 'cr'),
       indentType: 'space',
       indentWidth: 2,
-      file: this.paths._fullPath('src')
+      file: _fullPath(this.paths, 'src')
     };
     const opts = utils.merge(defaults, options);
     sass.render(opts, (err, res) => {
@@ -186,7 +191,7 @@ class Converter {
   toLegacyTheme(options={}) {
     this.compile((err, css) => {
       if(err) return console.error(err.message);
-      const dest = this.paths._fullPath('legacyTheme');
+      const dest = _fullPath(this.paths, 'legacyTheme');
       const meta = bd.format(this.meta) + this.EOL;
       fs.writeFile(dest, meta + this.EOL + css, (error) => {
         if(error) throw error;
@@ -212,13 +217,11 @@ class Converter {
       css = css.toString()
         .replace(/^/gm, indent)
         .replace(/^[\s\t]+$/gm, '');
-      const dest = this.paths._fullPath('userStyle');
+      const dest = _fullPath(this.paths, 'userStyle');
       const info = utils.renameKeys(this.meta, {
         source: 'namespace', website: 'homepageURL'});
       if(typeof info.author === 'string')
         info.author = info.author.split(', ');
-      console.log(this.meta);
-      console.log(info);
       const meta = stylus.format(utils.merge(info, extras));
       const doc = stylus.mozDocument('domain', 'discordapp.com');
       const full = meta + this.EOL + this.EOL + doc +
@@ -244,7 +247,7 @@ class Converter {
     options.outputStyle = 'compressed';
     this.compile((err, css) => {
       if(err) return console.error(err.message);
-      let dest = this.paths._fullPath('minified');
+      let dest = _fullPath(this.paths, 'minified');
       if(meta) {
         css = bd.format(this.meta) + this.EOL + css;
         if(dest.indexOf('theme.css') &lt; 0)
@@ -309,7 +312,7 @@ module.exports = Converter;
 <br class="clear">
 
 <footer>
-    Documentation generated at Mon Jul 23 2018 11:48:28 GMT+0300 (EEST)
+    Documentation generated at Mon Jul 23 2018 13:57:58 GMT+0300 (EEST)
 </footer>
 
 <script>prettyPrint();</script>
