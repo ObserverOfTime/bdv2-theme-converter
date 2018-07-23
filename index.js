@@ -5,8 +5,8 @@ module.exports = Converter;
 /**
  * Initialises a Converter.
  *
- * @param {Config} config - The BDv2 configuration file.
- * @param {Paths} [paths] - The file paths.
+ * @param {BDv2~Config} config - The BDv2 configuration file.
+ * @param {Converter~Paths} [paths] - The file paths.
  * @param {string} [eol] - An end of line string.
  * @returns {Converter} - The created Converter.
  */
