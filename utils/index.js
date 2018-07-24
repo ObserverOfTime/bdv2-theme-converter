@@ -1,15 +1,6 @@
 /** @module bdv2-theme-converter/utils */
 
 /**
- * @const
- * @name bdv2-theme-converter/utils~_empty
- * @description An array of values that count as empty.
- * @private
- * @type {Array.<*>}
- */
-const _empty = ['', null, undefined]; // eslint-disable-line no-undefined
-
-/**
  * Renames an object's keys.
  *
  * @param {Object} obj - The source object.
@@ -54,10 +45,7 @@ module.exports.isEmpty = (obj) => (!obj || Object.keys(obj).length === 0);
  * @param {*} arg - The argument to be checked.
  * @returns {boolean}
  */
-module.exports.isObject = (arg) => {
-  if(arg === null) return false;
-  return (/function|object/.test(typeof arg));
-};
+module.exports.isObject = (arg) => (arg !== null && typeof arg === 'object');
 
 /**
  * Checks whether the given argument is a finite number.
@@ -102,11 +90,32 @@ module.exports.indent = (type, width) => {
 module.exports.stripEmpty = (obj) => (
   Object.keys(obj).reduce((acc, key) => {
     const val = obj[key];
-    const isEmpty = _empty.includes(val) ||
+    // eslint-disable-next-line no-undefined
+    const empty = ['', null, undefined];
+    const isEmpty = empty.includes(val) ||
       ((Array.isArray(val) && val.length === 0) ||
       (this.isObject(val) && this.isEmpty(val)));
     if(!isEmpty) acc[key] = obj[key];
     return acc;
   }, {})
 );
+
+/**
+ * Creates missing directories recursively.
+ *
+ * @param {string} dir - The directory path to create.
+ * @see {@link https://stackoverflow.com/a/41970204|SO answer}
+ * @since 0.1.2
+ */
+module.exports.mkdirRecursive = (dir) => {
+  const {sep} = require('path');
+  const fs = require('fs');
+  dir.split(sep)
+    .reduce((currPath, folder) => {
+      currPath += folder + sep;
+      if(!fs.existsSync(currPath))
+        fs.mkdirSync(currPath);
+      return currPath;
+    }, '');
+};
 

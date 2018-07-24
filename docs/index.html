@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li><li><a href="VariableParser.html">VariableParser</a></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.mkdirRecursive">mkdirRecursive</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.omitKey">omitKey</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -47,10 +47,34 @@
 
 
     <section class="readme">
-        <article><h1>bdv2-theme-converter</h1><p><a href="https://github.com/ObserverOfTime/bdv2-theme-converter/blob/master/package.json"><img src="https://img.shields.io/github/package-json/v/ObserverOfTime/bdv2-theme-converter.svg" alt="version"></a> <a href="https://github.com/ObserverOfTime/bdv2-theme-converter/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a></p>
+        <article><h1><a href="https://github.com/ObserverOfTime/bdv2-theme-converter">bdv2-theme-converter</a></h1><p><a href="https://github.com/ObserverOfTime/bdv2-theme-converter/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a> <a href="https://github.com/ObserverOfTime/bdv2-theme-converter/blob/master/package.json"><img src="https://img.shields.io/github/package-json/v/ObserverOfTime/bdv2-theme-converter.svg" alt="version"></a></p>
 <p>Converts BDv2 themes to legacy BD themes and Stylus UserStyles.</p>
 <h2>Installation</h2><h3>npm</h3><pre class="prettyprint source lang-sh"><code>$ npm install --save ObserverOfTime/bdv2-theme-converter</code></pre><h3>yarn</h3><pre class="prettyprint source lang-sh"><code>$ yarn add ObserverOfTime/bdv2-theme-converter</code></pre><h2>Documentation</h2><p>You can view the documentation <a href="https://observeroftime.github.io/bdv2-theme-converter">here</a>.</p>
-<h2>Dependencies <a href="https://david-dm.org/ObserverOfTime/bdv2-theme-converter/master"><img src="https://img.shields.io/david/ObserverOfTime/bdv2-theme-converter/master.svg" alt="dependency status"></a></h2><ul>
+<h2>Usage</h2><pre class="prettyprint source lang-jsx"><code>// Require the BDv2 config file
+const config = require('./config');
+
+// Set the paths
+const paths = {
+    root: './',
+    src: 'SomeTheme.scss',
+    dest: {
+        legacyTheme: 'SomeTheme.theme.css',
+        userStyle: 'SomeTheme.user.css',
+        minified: 'SomeTheme.min.theme.css'
+    }
+};
+
+// Initialise the converter
+const converter = require('bdv2-theme-converter').init(config, paths);
+
+// Convert to a legacy BD theme with compact style
+converter.toLegacyTheme({outputStyle: 'compact'});
+
+// Convert to a UserStyle with expanded style and MIT license
+converter.toUserStyle({outputStyle: 'expanded'}, {license: 'MIT'});
+
+// Convert to a minified legacy BD theme
+converter.toMinified({}, true);</code></pre><h2>Dependencies <a href="https://david-dm.org/ObserverOfTime/bdv2-theme-converter/master"><img src="https://img.shields.io/david/ObserverOfTime/bdv2-theme-converter/master.svg" alt="dependency status"></a></h2><ul>
 <li><a href="https://ghub.io/node-sass">node-sass</a>: Wrapper around libsass</li>
 <li><a href="https://ghub.io/semver">semver</a>: The semantic version parser used by npm.</li>
 <li><a href="https://ghub.io/to-title-case">to-title-case</a>: Convert a string to title case.</li>
@@ -76,7 +100,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated at Mon Jul 23 2018 14:23:54 GMT+0300 (EEST)
+    Documentation generated at Wed Jul 25 2018 17:47:42 GMT+0300 (EEST)
 </footer>
 
 <script>prettyPrint();</script>

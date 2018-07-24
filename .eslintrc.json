@@ -4,7 +4,10 @@
     "es6": true
   },
   "parserOptions": {
-    "ecmaFeatures": {"jsx": true},
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    },
     "ecmaVersion": 6,
     "sourceType": "module"
   },
