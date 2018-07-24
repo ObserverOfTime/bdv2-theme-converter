@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li><li><a href="VariableParser.html">VariableParser</a></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.mkdirRecursive">mkdirRecursive</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.omitKey">omitKey</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -70,8 +70,9 @@ const _fullPath = (paths, key) => {
   return path.resolve(paths.root, val);
 };
 
-/** Class representing a Converter. */
+/** @classdesc Class representing a Converter. */
 class Converter {
+
   /**
    * @param {BDv2~Config} config - The BDv2 configuration file.
    * @param {Converter~Paths} [paths={}] - The file paths.
@@ -193,6 +194,7 @@ class Converter {
       if(err) return console.error(err.message);
       const dest = _fullPath(this.paths, 'legacyTheme');
       const meta = bd.format(this.meta) + this.EOL;
+      utils.mkdirRecursive(path.dirname(dest));
       fs.writeFile(dest, meta + this.EOL + css, (error) => {
         if(error) throw error;
         const msg = 'Wrote to ' + dest;
@@ -226,6 +228,7 @@ class Converter {
       const doc = stylus.mozDocument('domain', 'discordapp.com');
       const full = meta + this.EOL + this.EOL + doc +
         ` {${this.EOL}${css}${this.EOL}}${this.EOL}`;
+      utils.mkdirRecursive(path.dirname(dest));
       fs.writeFile(dest, full, (error) => {
         if(error) throw error;
         const msg = 'Wrote to ' + dest;
@@ -253,6 +256,7 @@ class Converter {
         if(dest.indexOf('theme.css') &lt; 0)
           dest = dest.replace(/\.css$/, '.theme.css');
       }
+      utils.mkdirRecursive(path.dirname(dest));
       fs.writeFile(dest, css, (error) => {
         if(error) throw error;
         const msg = 'Wrote to ' + dest;
@@ -275,6 +279,7 @@ class Converter {
     return `${path.resolve(dir)}/${this.name}.${suffix}.\css`;
   }
 
+  toString() { return '[object Converter]' }
 }
 
 module.exports = Converter;
@@ -312,7 +317,7 @@ module.exports = Converter;
 <br class="clear">
 
 <footer>
-    Documentation generated at Mon Jul 23 2018 14:23:54 GMT+0300 (EEST)
+    Documentation generated at Wed Jul 25 2018 17:47:42 GMT+0300 (EEST)
 </footer>
 
 <script>prettyPrint();</script>
