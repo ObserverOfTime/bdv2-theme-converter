@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.mkdirRecursive">mkdirRecursive</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Converter.html">Converter</a><ul class='methods'><li data-type='method'><a href="Converter.html#_defaultPath">_defaultPath</a></li><li data-type='method'><a href="Converter.html#compile">compile</a></li><li data-type='method'><a href="Converter.html#toLegacyTheme">toLegacyTheme</a></li><li data-type='method'><a href="Converter.html#toMinified">toMinified</a></li><li data-type='method'><a href="Converter.html#toUserStyle">toUserStyle</a></li></ul></li><li><a href="VariableParser.html">VariableParser</a></li></ul><h3>Modules</h3><ul><li><a href="module-bdv2-theme-converter.html">bdv2-theme-converter</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter.html#.init">init</a></li></ul></li><li><a href="module-bdv2-theme-converter_utils.html">bdv2-theme-converter/utils</a><ul class='methods'><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.checkMark">checkMark</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.indent">indent</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isEmpty">isEmpty</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isNumber">isNumber</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.isObject">isObject</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.merge">merge</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.mkdirRecursive">mkdirRecursive</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.omitKey">omitKey</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.renameKeys">renameKeys</a></li><li data-type='method'><a href="module-bdv2-theme-converter_utils.html#.stripEmpty">stripEmpty</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="BDv2.html">BDv2</a><ul class='methods'><li data-type='method'><a href="BDv2.html#.validateConfig">validateConfig</a></li></ul></li><li><a href="BetterDiscord.html">BetterDiscord</a><ul class='methods'><li data-type='method'><a href="BetterDiscord.html#.format">format</a></li><li data-type='method'><a href="BetterDiscord.html#.meta">meta</a></li></ul></li><li><a href="Stylus.html">Stylus</a><ul class='methods'><li data-type='method'><a href="Stylus.html#.format">format</a></li><li data-type='method'><a href="Stylus.html#.mozDocument">mozDocument</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -1171,6 +1171,192 @@ If the objects share keys, the rightmost object's value will be used.</p>
 
     
 
+    <h4 class="name" id=".omitKey"><span class="type-signature">(static) </span>omitKey<span class="signature">(obj, key)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Creates a copy of an object with a key omitted.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The source object.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The key to omit.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>0.2.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_index.js.html">utils/index.js</a>, <a href="utils_index.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://stackoverflow.com/a/40699547">SO answer</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new object with the key omitted.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".renameKeys"><span class="type-signature">(static) </span>renameKeys<span class="signature">(obj, newKeys)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
@@ -1516,7 +1702,7 @@ If the objects share keys, the rightmost object's value will be used.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated at Tue Jul 24 2018 16:04:01 GMT+0300 (EEST)
+    Documentation generated at Wed Jul 25 2018 20:19:56 GMT+0300 (EEST)
 </footer>
 
 <script>prettyPrint();</script>

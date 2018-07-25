@@ -119,3 +119,17 @@ module.exports.mkdirRecursive = (dir) => {
     }, '');
 };
 
+/**
+ * Creates a copy of an object with a key omitted.
+ *
+ * @param {Object} obj - The source object.
+ * @param {string} key - The key to omit.
+ * @returns {Object} A new object with the key omitted.
+ * @see {@link https://stackoverflow.com/a/40699547|SO answer}
+ * @since 0.2.0
+ */
+module.exports.omitKey = (obj, key) => {
+  const {[key]: _, ...keys} = obj;
+  return keys;
+};
+

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>lib/Stylus.js - Postman Documentation</title>
+    <title>lib/VariableParser.js - Postman Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">lib/Stylus.js</h1>
+    <h1 class="page-title">lib/VariableParser.js</h1>
     
 
     
@@ -38,90 +38,50 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const semver = require('semver');
-const {stringify} = require('usercss-meta');
-const {stripEmpty} = require('../utils');
+            <pre class="prettyprint source linenums"><code>const {omitKey} = require('../utils');
+const _getObjectsWithKeys = (arr, key) => (
+  arr.map(o => ({[o[key]]: omitKey(o, key)}))
+);
 
-/**
- * @function
- * @name Stylus~_quote
- * @description Quotes a string using double quotes.
- * @private
- * @param {string} str - The input string.
- * @returns {string} The quoted string.
- */
-const _quote = (str) => str.replace(/^['"]*|['"]*$/g, '"');
-
-/**
- * Class representing a Stylus Error.
- *
- * @private
- * @extends {Error}
- */
-class StylusError extends Error {}
-
-/**
- * Namespace for Stylus.
- *
- * @namespace Stylus
- * @see {@link https://github.com/openstyles/stylus|Stylus}
- */
-const Stylus = {
-  /**
-   * Formats metadata into a UserStyle string.
-   *
-   * @param {Object} meta - The metadata to be formatted.
-   * @returns {string} The formatted UserStyle string.
-   * @see {@link https://github.com/openstyles/stylus/wiki/Usercss#usercss-metadata|UserCSS Metadata}
-   */
-  format: (meta) => {
-    meta.version = semver.coerce(meta.version).raw;
-    if(!semver.valid(meta.version))
-      throw new StylusError('UserStyle version must follow SemVer');
-    return stringify(stripEmpty(meta), {alignKeys: true, format: 'xstyle'});
-  },
+/** @classdesc Class representing a VariableParser. */
+class VariableParser {
 
   /**
-   * Creates a &lt;code>@-moz-document&lt;/code> string.
-   *
-   * @param {Stylus.RULES} rule - The rule to use.
-   * @param {string} url - The URL to use.
-   * @throws Will throw an error when the rule is invalid.
-   * @returns {string} The created &lt;code>@-moz-document&lt;/code> string.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/@document|MDN docs}
+   * @param {BDv2~Config|Array.&lt;Object>} config
+   * The BDv2 configuration file or its &lt;code>defaultConfig&lt;/code>.
+   * @param {Array.&lt;Object>} [schemes]
+   * The BDv2 configuration file's &lt;code>configSchemes&lt;/code>.
    */
-  mozDocument: (rule, url) => {
-    const found = Object.values(Stylus.RULES).find(r => (r === rule));
-    if(!found) throw new StylusError('Invalid @-moz-document rule');
-    return `@-moz-document ${rule}(${_quote(url)})`;
-  }
-};
+  constructor(config, schemes) {
 
-/**
- * @enum
- * @name Stylus.RULES
- * @description Moz document rules enumeration.
- * @type {Object}
- * @readonly
- * @property {string} DOMAIN - Value: &lt;code>domain&lt;/code>.
- * @property {string} URL - Value: &lt;code>url&lt;/code>.
- * @property {string} PREFIX - Value: &lt;code>url-prefix&lt;/code>.
- * @property {string} REGEXP - Value: &lt;code>regexp&lt;/code>.
- * @see {@link https://github.com/stylish-userstyles/stylish/wiki/Valid-@-moz-document-rules|Stylish wiki}
- */
-Object.defineProperty(Stylus, 'RULES', {
-  enumerable: true,
-  configurable: false,
-  writable: false,
-  value: {
-    DOMAIN: 'domain',
-    URL: 'url',
-    PREFIX: 'url-prefix',
-    REGEXP: 'regexp'
-  }
-});
+    /**
+     * @name VariableParser#config
+     * @type {Array.&lt;Object>}
+     * @description The BDv2 theme's default settings.
+     */
+    this.config = config;
 
-module.exports = Stylus;
+    /**
+     * @name VariableParser#schemes
+     * @type {Array.&lt;Object>}
+     * @description The BDv2 theme's config schemes.
+     */
+    this.schemes = schemes || config.configSchemes;
+  }
+
+  set config(config) {
+    Object.defineProperty(this, 'config', {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: (Array.isArray(config)) ?
+        config : config.defaultConfig
+    });
+  }
+
+}
+
+module.exports = VariableParser;
 
 </code></pre>
         </article>
